@@ -14,17 +14,11 @@ namespace RideShare.Domain.Entities
 
         public User(string username, string password)
         {
-            if (username == null || username.Length < 4 || username.Length > 10)
+            if(CheckUsername(username) && CheckPassword(password))
             {
-                throw new ArgumentException();
+                Username = username;
+                Password = password;
             }
-            if (password == null || password.Length < 4 || password.Length > 10)
-            {
-                throw new ArgumentException();
-            }
-
-            Username = username;
-            Password = password;
         }
 
         public User()
@@ -44,6 +38,38 @@ namespace RideShare.Domain.Entities
             var passenger = new Passenger(this);
             Passenger = passenger;
             return passenger;
+        }
+
+        public void SetPassword(string password)
+        {
+            if (CheckPassword(password))
+            {
+                Password = password;
+            }
+        }
+
+        private bool CheckUsername(string username)
+        {
+            if (username == null || username.Length < 4 || username.Length > 10)
+            {
+                throw new ArgumentException();
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private bool CheckPassword(string password)
+        {
+            if (password == null || password.Length < 4 || password.Length > 10)
+            {
+                throw new ArgumentException();
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }
