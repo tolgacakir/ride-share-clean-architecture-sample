@@ -15,9 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Commands\Users\LoginUser\" />
     <Folder Include="Queries\Drivers\" />
-    <Folder Include="Queries\Passengers\" />
-    <Folder Include="Queries\TravelDemands\" />
     <Folder Include="Queries\Users\" />
   </ItemGroup>
 
