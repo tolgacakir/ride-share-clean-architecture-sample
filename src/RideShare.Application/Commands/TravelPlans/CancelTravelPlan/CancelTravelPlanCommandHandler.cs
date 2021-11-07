@@ -16,7 +16,7 @@ namespace RideShare.Application.Commands.TravelPlans.CancelTravelPlan
                 .Where(x=>x.Id == request.DriverId)
                 .FirstOrDefaultAsync();
 
-            var plan = driver.AllTravelPlans.Where(x=>x.Id == request.TravelPlanId).FirstOrDefault();
+            var plan = driver.ActiveTravelPlans.Where(x=>x.Id == request.TravelPlanId).FirstOrDefault();
             driver.CancelTravelPlan(plan);
 
             var result = await _context.SaveChangesAsync(cancellationToken);
