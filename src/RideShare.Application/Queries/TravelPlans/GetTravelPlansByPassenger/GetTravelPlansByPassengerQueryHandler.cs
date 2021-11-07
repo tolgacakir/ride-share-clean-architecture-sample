@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using RideShare.Application.Common;
 using System.Linq;
+using System;
 
 namespace RideShare.Application.Queries.TravelPlans.GetTravelPlansByPassenger
 {
@@ -23,8 +24,13 @@ namespace RideShare.Application.Queries.TravelPlans.GetTravelPlansByPassenger
 
         public async Task<List<GetTravelPlansByPassengerResponse>> Handle(GetTravelPlansByPassengerRequest request, CancellationToken cancellationToken)
         {
-            var travelPlans = await _context.TravelPlans.Include(x=>x.Demands).ThenInclude(x=>x.Passenger)
-                .Where(x=>x.Passengers.Any(p => p.Id == request.PassengerId)).ToListAsync();
+            var travelPlans = await _context.TravelPlans
+                .Include(x=>x.Demands)
+                .ThenInclude(x=>x.Passenger)
+                .Where(x=>x.Passengers.Any(p => p.Id == request.PassengerId))
+                .OrderBy(x => x.Status)
+                .ThenBy(x => x.StartAt)
+                .ToListAsync();
 
             return _mapper.Map<List<GetTravelPlansByPassengerResponse>>(travelPlans);            
         }
@@ -41,8 +47,10 @@ namespace RideShare.Application.Queries.TravelPlans.GetTravelPlansByPassenger
         public byte EmptySeat { get; set; }
         public string From { get; set; }
         public string To { get; set; }
+        public DateTime StartAt { get; set; }
         public string DriverName { get; set; }
         public string PassengerName { get; set; }
-        
+        public string Status { get; set; }
+
     }
 }
