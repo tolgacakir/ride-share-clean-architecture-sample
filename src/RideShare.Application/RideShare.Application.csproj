@@ -14,4 +14,11 @@
     <ProjectReference Include="..\RideShare.Domain\RideShare.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Queries\Drivers\" />
+    <Folder Include="Queries\Passengers\" />
+    <Folder Include="Queries\TravelDemands\" />
+    <Folder Include="Queries\Users\" />
+  </ItemGroup>
+
 </Project>
