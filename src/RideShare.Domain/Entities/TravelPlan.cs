@@ -27,11 +27,16 @@ namespace RideShare.Domain.Entities
 
 
 
-        public TravelPlan(string caption, string from, string to, DateTime startAt, Driver driver, ushort awaitingDemandCapacity=5, byte capacity=1)
+        public TravelPlan(string caption, string from, string to, DateTime startAt, Driver driver, byte capacity=1, ushort? awaitingDemandCapacity=5)
         {
             Caption = caption;
             From = from;
             To = to;
+
+            if (awaitingDemandCapacity == null)
+            {
+                awaitingDemandCapacity = 5;
+            }
 
             if (startAt <= DateTime.Now)
             {

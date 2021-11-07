@@ -24,9 +24,9 @@ namespace RideShare.Domain.Entities
             
         }
 
-        public TravelPlan CreateTravelPlan(string caption, string from, string to, DateTime startAt,ushort awaitingDemandCapacity, byte capacity)
+        public TravelPlan CreateTravelPlan(string caption, string from, string to, DateTime startAt,byte capacity, ushort? awaitingDemandCapacity)
         {
-            var plan = new TravelPlan(caption,from,to,startAt,this,awaitingDemandCapacity,capacity);
+            var plan = new TravelPlan(caption,from,to,startAt,this,capacity, awaitingDemandCapacity);
             TravelPlans.Add(plan);
             return plan;
         }
