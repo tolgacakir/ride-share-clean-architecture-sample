@@ -124,7 +124,6 @@ namespace RideShare.Domain.Entities
                 throw new InvalidOperationException();
             }
 
-            var demandCount = Demands.Count();
             if (demand.Status == DemandStatuses.Awaiting 
                 && AwaitingDemands.Count < AwaitingDemandCapacity
                 && DateTime.Now < StartAt)
