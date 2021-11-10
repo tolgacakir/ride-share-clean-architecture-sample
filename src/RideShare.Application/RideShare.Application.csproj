@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Commands\Users\LoginUser\" />
+    <Folder Include="Mappings\" />
     <Folder Include="Queries\Drivers\" />
     <Folder Include="Queries\Users\" />
   </ItemGroup>
