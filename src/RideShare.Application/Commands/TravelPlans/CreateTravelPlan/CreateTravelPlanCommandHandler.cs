@@ -20,7 +20,7 @@ namespace RideShare.Application.Commands.TravelPlans.CreateTravelPlan
 
         public async Task<CreateTravelPlanResponse> Handle(CreateTravelPlanRequest request, CancellationToken cancellationToken)
         {
-            var driver = await _context.Drivers.Where(x=>x.Id == request.DriverId)
+            var driver = await _context.Drivers.Where(x=>x.User.Id == request.UserId)
                 .FirstOrDefaultAsync();
 
             var plan = driver.CreateTravelPlan(
@@ -42,7 +42,7 @@ namespace RideShare.Application.Commands.TravelPlans.CreateTravelPlan
 
     public class CreateTravelPlanRequest : IRequest<CreateTravelPlanResponse>
     {
-        public int DriverId { get; set; }
+        public Guid UserId { get; set; }
         public string Caption { get; set; }
         public string From { get; set; }
         public string To { get; set; }

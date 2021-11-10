@@ -22,7 +22,7 @@ namespace RideShare.Application.Commands.TravelDemands.CancelTravelDemand
         {
             var passenger = await _context.Passengers
                 .Include(x => x.Demands)
-                .Where(x => x.Id == request.PassengerId)
+                .Where(x => x.User.Id == request.UserId)
                 .FirstOrDefaultAsync();
 
             var demand = passenger.Demands
@@ -41,7 +41,7 @@ namespace RideShare.Application.Commands.TravelDemands.CancelTravelDemand
 
     public class CancelTravelDemandRequest : IRequest<CancelTravelDemandResponse>
     {
-        public int PassengerId { get; set; }
+        public Guid UserId { get; set; }
         public int TravelPlanId { get; set; }
         public int TravelDemandId { get; set; }
     }

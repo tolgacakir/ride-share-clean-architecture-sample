@@ -20,7 +20,7 @@ namespace RideShare.Application.Commands.TravelDemands.CreateTravelDemand
 
         public async Task<CreateTravelDemandResponse> Handle(CreateTravelDemandRequest request, CancellationToken cancellationToken)
         {
-            var passenger = await _context.Passengers.Where(x => x.Id == request.PassengerId)
+            var passenger = await _context.Passengers.Where(x => x.User.Id == request.UserId)
                 .FirstOrDefaultAsync();
 
             var plan = await _context.TravelPlans.Where(x => x.Id == request.TravelPlanId)
@@ -40,7 +40,7 @@ namespace RideShare.Application.Commands.TravelDemands.CreateTravelDemand
 
     public class CreateTravelDemandRequest : IRequest<CreateTravelDemandResponse>
     {
-        public int PassengerId { get; set; }
+        public Guid UserId { get; set; }
         public int TravelPlanId { get; set; }
     }
 

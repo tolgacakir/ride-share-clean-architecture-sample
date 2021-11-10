@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace RideShare.Application.Commands.TravelPlans.CancelTravelPlan
         public async Task<CancelTravelPlanResponse> Handle(CancelTravelPlanRequest request, CancellationToken cancellationToken)
         {
             var driver = await _context.Drivers.Include(x => x.TravelPlans)
-                .Where(x=>x.Id == request.DriverId)
+                .Where(x=>x.User.Id == request.UserId)
                 .FirstOrDefaultAsync();
 
             var plan = driver.ActiveTravelPlans.Where(x=>x.Id == request.TravelPlanId).FirstOrDefault();
@@ -29,8 +30,8 @@ namespace RideShare.Application.Commands.TravelPlans.CancelTravelPlan
 
     public class CancelTravelPlanRequest : IRequest<CancelTravelPlanResponse> 
     {
+        public Guid UserId { get; set; }
         public int TravelPlanId { get; set; }
-        public int DriverId { get; set; }
     }
 
     public class CancelTravelPlanResponse

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,10 +11,16 @@ namespace RideShare.Application.Commands.TravelPlans.FinishTravelPlan
     public class FinishTravelPlanCommandHandler : IRequestHandler<FinishTravelPlanRequest, FinishTravelPlanResponse>
     {
         private readonly IRideShareDbContext _context;
+
+        public FinishTravelPlanCommandHandler(IRideShareDbContext context)
+        {
+            _context = context;
+        }
+
         public async Task<FinishTravelPlanResponse> Handle(FinishTravelPlanRequest request, CancellationToken cancellationToken)
         {
             var driver = await _context.Drivers.Include(x => x.TravelPlans)
-                .Where(x=>x.Id == request.DriverId)
+                .Where(x=>x.User.Id == request.UserId)
                 .FirstOrDefaultAsync();
 
             var plan = driver.ActiveTravelPlans.Where(x=>x.Id == request.TravelPlanId).FirstOrDefault();
@@ -29,8 +36,8 @@ namespace RideShare.Application.Commands.TravelPlans.FinishTravelPlan
 
     public class FinishTravelPlanRequest : IRequest<FinishTravelPlanResponse> 
     {
+        public Guid UserId { get; set; }
         public int TravelPlanId { get; set; }
-        public int DriverId { get; set; }
     }
 
     public class FinishTravelPlanResponse

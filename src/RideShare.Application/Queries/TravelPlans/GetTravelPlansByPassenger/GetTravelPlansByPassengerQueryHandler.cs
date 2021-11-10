@@ -27,7 +27,8 @@ namespace RideShare.Application.Queries.TravelPlans.GetTravelPlansByPassenger
             var travelPlans = await _context.TravelPlans
                 .Include(x => x.Demands)
                 .ThenInclude(x => x.Passenger)
-                .Where(x => x.Demands.Any(x => x.Passenger.Id == 1 && x.Status == DemandStatuses.Accepted))
+                .ThenInclude(x => x.User)
+                .Where(x => x.Demands.Any(x => x.Passenger.User.Id == request.UserId && x.Status == DemandStatuses.Accepted))
                 .OrderBy(x => x.Status)
                 .ThenBy(x => x.StartAt)
                 .ToListAsync();
@@ -38,7 +39,7 @@ namespace RideShare.Application.Queries.TravelPlans.GetTravelPlansByPassenger
 
     public class GetTravelPlansByPassengerRequest : IRequest<List<GetTravelPlansByPassengerResponse>>
     {
-        public int PassengerId { get; set; }
+        public Guid UserId { get; set; }
     }
 
     public class GetTravelPlansByPassengerResponse

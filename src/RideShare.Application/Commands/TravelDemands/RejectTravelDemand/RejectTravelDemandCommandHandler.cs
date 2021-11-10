@@ -23,7 +23,7 @@ namespace RideShare.Application.Commands.TravelDemands.RejectTravelDemand
             var driver = await _context.Drivers
                 .Include(x => x.TravelPlans)
                 .ThenInclude(x => x.Demands)
-                .Where(x => x.Id == request.DriverId)
+                .Where(x => x.User.Id == request.UserId)
                 .FirstOrDefaultAsync();
 
             var plan = driver.ActiveTravelPlans
@@ -46,7 +46,7 @@ namespace RideShare.Application.Commands.TravelDemands.RejectTravelDemand
 
     public class RejectTravelDemandRequest : IRequest<RejectTravelDemandResponse>
     {
-        public int DriverId { get; set; }
+        public Guid UserId { get; set; }
         public int TravelPlanId { get; set; }
         public int TravelDemandId { get; set; }
     }
