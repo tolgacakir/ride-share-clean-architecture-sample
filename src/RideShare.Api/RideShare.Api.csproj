@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\RideShare.Application\RideShare.Application.csproj" />
+    <ProjectReference Include="..\RideShare.Application\RideShare.Application.csproj" />
   </ItemGroup>
 
 </Project>
