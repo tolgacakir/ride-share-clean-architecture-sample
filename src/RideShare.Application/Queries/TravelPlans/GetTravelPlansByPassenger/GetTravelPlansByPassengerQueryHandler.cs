@@ -25,6 +25,7 @@ namespace RideShare.Application.Queries.TravelPlans.GetTravelPlansByPassenger
         public async Task<List<GetTravelPlansByPassengerResponse>> Handle(GetTravelPlansByPassengerRequest request, CancellationToken cancellationToken)
         {
             var travelPlans = await _context.TravelPlans
+                .Include(x => x.Driver)
                 .Include(x => x.Demands)
                 .ThenInclude(x => x.Passenger)
                 .ThenInclude(x => x.User)
