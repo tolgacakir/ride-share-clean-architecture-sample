@@ -25,14 +25,14 @@ namespace RideShare.Application.Queries.TravelPlans.GetTravelPlansByPassenger
         public async Task<List<GetTravelPlansByPassengerResponse>> Handle(GetTravelPlansByPassengerRequest request, CancellationToken cancellationToken)
         {
             var travelPlans = await _context.TravelPlans
-                .Include(x=>x.Demands)
-                .ThenInclude(x=>x.Passenger)
-                .Where(x=>x.Passengers.Any(p => p.Id == request.PassengerId))
+                .Include(x => x.Demands)
+                .ThenInclude(x => x.Passenger)
+                .Where(x => x.Demands.Any(x => x.Passenger.Id == 1 && x.Status == DemandStatuses.Accepted))
                 .OrderBy(x => x.Status)
                 .ThenBy(x => x.StartAt)
                 .ToListAsync();
 
-            return _mapper.Map<List<GetTravelPlansByPassengerResponse>>(travelPlans);            
+            return _mapper.Map<List<GetTravelPlansByPassengerResponse>>(travelPlans);
         }
     }
 
@@ -49,7 +49,7 @@ namespace RideShare.Application.Queries.TravelPlans.GetTravelPlansByPassenger
         public string To { get; set; }
         public DateTime StartAt { get; set; }
         public string DriverName { get; set; }
-        public string PassengerName { get; set; }
+        public IReadOnlyCollection<string> PassengerNames { get; set; }
         public string Status { get; set; }
 
     }
