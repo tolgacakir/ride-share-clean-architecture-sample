@@ -5,23 +5,30 @@ VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5106FFEE-8637-4E63-A75B-4A1553BA526C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideShare.Domain", "src\RideShare.Domain\RideShare.Domain.csproj", "{3BD2945E-EDD8-4A15-BAFA-907462736D61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideShare.Domain", "src\RideShare.Domain\RideShare.Domain.csproj", "{3BD2945E-EDD8-4A15-BAFA-907462736D61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideShare.Application", "src\RideShare.Application\RideShare.Application.csproj", "{56FB916F-EEBA-46EC-A5A1-BB1C59CAE3B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideShare.Application", "src\RideShare.Application\RideShare.Application.csproj", "{56FB916F-EEBA-46EC-A5A1-BB1C59CAE3B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideShare.Persistence", "src\RideShare.Persistence\RideShare.Persistence.csproj", "{9AA97613-DE33-4C0D-B574-8B3007038B6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideShare.Persistence", "src\RideShare.Persistence\RideShare.Persistence.csproj", "{9AA97613-DE33-4C0D-B574-8B3007038B6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideShare.Infrastructure", "src\RideShare.Infrastructure\RideShare.Infrastructure.csproj", "{939AA32E-686B-4028-8E5E-3216E906AE72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideShare.Infrastructure", "src\RideShare.Infrastructure\RideShare.Infrastructure.csproj", "{939AA32E-686B-4028-8E5E-3216E906AE72}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{13EDFDE3-85CA-4B3B-9CEC-5449BBFE4997}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideShare.Infrastructure.Test", "test\RideShare.Infrastructure.Test\RideShare.Infrastructure.Test.csproj", "{EAC9CD37-93B0-4B24-8D2D-FF64BE9DF5AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideShare.Infrastructure.Test", "test\RideShare.Infrastructure.Test\RideShare.Infrastructure.Test.csproj", "{EAC9CD37-93B0-4B24-8D2D-FF64BE9DF5AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideShare.Domain.Test", "test\RideShare.Domain.Test\RideShare.Domain.Test.csproj", "{846119A7-9590-41F2-8143-DE102213BAEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideShare.Domain.Test", "test\RideShare.Domain.Test\RideShare.Domain.Test.csproj", "{846119A7-9590-41F2-8143-DE102213BAEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideShare.Application.Test", "test\RideShare.Application.Test\RideShare.Application.Test.csproj", "{98B27709-3522-4C5F-BFC6-05E315AFD929}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideShare.Application.Test", "test\RideShare.Application.Test\RideShare.Application.Test.csproj", "{98B27709-3522-4C5F-BFC6-05E315AFD929}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideShare.Persistence.Test", "test\RideShare.Persistence.Test\RideShare.Persistence.Test.csproj", "{B7617D3C-D8C3-4239-90D7-E4E7AD54C60C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideShare.Persistence.Test", "test\RideShare.Persistence.Test\RideShare.Persistence.Test.csproj", "{B7617D3C-D8C3-4239-90D7-E4E7AD54C60C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{A84EA03A-C3EB-4ED0-ABAD-423FDC466B87}"
+	ProjectSection(SolutionItems) = preProject
+		roadmap.md = roadmap.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideShare.Api", "RideShare.Api\RideShare.Api.csproj", "{B617DA0D-1DB8-4B4D-B11D-475B68973E09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,9 +38,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3BD2945E-EDD8-4A15-BAFA-907462736D61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -132,6 +136,21 @@ Global
 		{B7617D3C-D8C3-4239-90D7-E4E7AD54C60C}.Release|x64.Build.0 = Release|Any CPU
 		{B7617D3C-D8C3-4239-90D7-E4E7AD54C60C}.Release|x86.ActiveCfg = Release|Any CPU
 		{B7617D3C-D8C3-4239-90D7-E4E7AD54C60C}.Release|x86.Build.0 = Release|Any CPU
+		{B617DA0D-1DB8-4B4D-B11D-475B68973E09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B617DA0D-1DB8-4B4D-B11D-475B68973E09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B617DA0D-1DB8-4B4D-B11D-475B68973E09}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B617DA0D-1DB8-4B4D-B11D-475B68973E09}.Debug|x64.Build.0 = Debug|Any CPU
+		{B617DA0D-1DB8-4B4D-B11D-475B68973E09}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B617DA0D-1DB8-4B4D-B11D-475B68973E09}.Debug|x86.Build.0 = Debug|Any CPU
+		{B617DA0D-1DB8-4B4D-B11D-475B68973E09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B617DA0D-1DB8-4B4D-B11D-475B68973E09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B617DA0D-1DB8-4B4D-B11D-475B68973E09}.Release|x64.ActiveCfg = Release|Any CPU
+		{B617DA0D-1DB8-4B4D-B11D-475B68973E09}.Release|x64.Build.0 = Release|Any CPU
+		{B617DA0D-1DB8-4B4D-B11D-475B68973E09}.Release|x86.ActiveCfg = Release|Any CPU
+		{B617DA0D-1DB8-4B4D-B11D-475B68973E09}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3BD2945E-EDD8-4A15-BAFA-907462736D61} = {5106FFEE-8637-4E63-A75B-4A1553BA526C}
@@ -142,5 +161,9 @@ Global
 		{846119A7-9590-41F2-8143-DE102213BAEE} = {13EDFDE3-85CA-4B3B-9CEC-5449BBFE4997}
 		{98B27709-3522-4C5F-BFC6-05E315AFD929} = {13EDFDE3-85CA-4B3B-9CEC-5449BBFE4997}
 		{B7617D3C-D8C3-4239-90D7-E4E7AD54C60C} = {13EDFDE3-85CA-4B3B-9CEC-5449BBFE4997}
+		{B617DA0D-1DB8-4B4D-B11D-475B68973E09} = {5106FFEE-8637-4E63-A75B-4A1553BA526C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2B63D394-8316-4CA9-AA21-3920E86F89D9}
 	EndGlobalSection
 EndGlobal
