@@ -11,6 +11,12 @@ namespace RideShare.Application.Commands.TravelPlans.CancelTravelPlan
     public class CancelTravelPlanCommandHandler : IRequestHandler<CancelTravelPlanRequest, CancelTravelPlanResponse>
     {
         private readonly IRideShareDbContext _context;
+
+        public CancelTravelPlanCommandHandler(IRideShareDbContext context)
+        {
+            _context = context;
+        }
+
         public async Task<CancelTravelPlanResponse> Handle(CancelTravelPlanRequest request, CancellationToken cancellationToken)
         {
             var driver = await _context.Drivers.Include(x => x.TravelPlans)
