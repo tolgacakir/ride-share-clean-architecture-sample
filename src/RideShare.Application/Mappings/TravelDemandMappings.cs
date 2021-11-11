@@ -9,7 +9,8 @@ namespace RideShare.Application.Mappings
         public TravelDemandMappings()
         {
             CreateMap<TravelDemand, GetAwaitingTravelDemandsByTravelPlanResponse>()
-                .ForMember(res => res.PassengerName, t => t.MapFrom(x=>x.Passenger.User.Username));
+                .ForMember(res => res.PassengerName, t => t.MapFrom(x=>x.Passenger.User.Username))
+                .ForMember(res => res.TravelDemandId, t => t.MapFrom(x=>x.Id));
         }
     }
 }

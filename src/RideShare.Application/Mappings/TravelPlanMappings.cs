@@ -12,7 +12,8 @@ namespace RideShare.Application.Mappings
         public TravelPlanMappings()
         {
             CreateMap<TravelPlan, GetActiveTravelPlansResponse>()
-                .ForMember(res => res.DriverName, t => t.MapFrom(x=>x.Driver.User.Username));
+                .ForMember(res => res.DriverName, t => t.MapFrom(x=>x.Driver.User.Username))
+                .ForMember(res => res.EmptySeat, t => t.MapFrom(x => (int)x.Capacity - x.Demands.Where(y => y.Status == DemandStatuses.Accepted).Count()));
 
             CreateMap<TravelPlan, GetTravelPlansByPassengerResponse>()
                 .ForMember(res => res.PassengerNames, t => t.MapFrom(x=>x.Passengers.Select(p => p.User.Username)))
