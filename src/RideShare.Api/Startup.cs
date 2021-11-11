@@ -11,6 +11,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RideShare.Application;
+using RideShare.Persistence;
+using RideShare.Infrastructure.Filters;
+using FluentValidation.AspNetCore;
+using RideShare.Application.Validations.User;
 
 namespace RideShare.Api
 {
@@ -26,8 +31,14 @@ namespace RideShare.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
+            services.AddApplicationLayer();
+            services.AddPersistenceLayer(Configuration);
+            services.AddControllers(options => {
+                options.Filters.Add<ValidationFilter>();
+                options.Filters.Add<CustomExceptionFilter>();
+            })
+                .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<CreateUserValidator>());
+            ;
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RideShare.Api", Version = "v1" });
@@ -37,14 +48,11 @@ namespace RideShare.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
+            app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RideShare.Api v1"));
-            }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
