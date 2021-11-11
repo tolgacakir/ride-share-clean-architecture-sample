@@ -26,6 +26,7 @@ namespace RideShare.Persistence.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
+            modelBuilder.Entity<User>().HasData(new User(Guid.NewGuid(),"test-user","12345"));
             base.OnModelCreating(modelBuilder);
         }
 

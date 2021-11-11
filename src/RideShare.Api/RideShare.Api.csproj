@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RideShare.Application\RideShare.Application.csproj" />
+    <ProjectReference Include="..\RideShare.Persistence\RideShare.Persistence.csproj" />
+    <ProjectReference Include="..\RideShare.Infrastructure\RideShare.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

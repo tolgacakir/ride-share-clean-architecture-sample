@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  mssql-server:
+    image: "mcr.microsoft.com/mssql/server:2017-latest"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=1*2@3456ax
+    ports:
+      - 1433:1433
+
+  ride-share-api:
+    image: ${DOCKER_REGISTRY-}rideshare-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:80
+    depends_on:
+      - mssql-server

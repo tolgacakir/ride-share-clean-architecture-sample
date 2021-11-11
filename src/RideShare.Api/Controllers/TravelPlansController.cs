@@ -5,13 +5,12 @@ using RideShare.Application.Commands.TravelPlans.CancelTravelPlan;
 using RideShare.Application.Commands.TravelPlans.CreateTravelPlan;
 using RideShare.Application.Commands.TravelPlans.FinishTravelPlan;
 using RideShare.Application.Queries.TravelPlans.GetActiveTravelPlans;
+using RideShare.Application.Queries.TravelPlans.GetTravelPlansByDriver;
 using RideShare.Application.Queries.TravelPlans.GetTravelPlansByPassenger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RideShare.Api.Controllers
 {
@@ -30,7 +29,7 @@ namespace RideShare.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<List<GetTravelPlansByDriverResponse>> GetListDriver([FromQuery] GetTravelPlansByDriverRequest request)
+        public async Task<List<GetTravelPlansByDriverResponse>> GetListByDriver([FromQuery] GetTravelPlansByDriverRequest request)
         {
             return await _mediator.Send(request);
         }
