@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RideShare.Application.Common;
+using RideShare.Domain.Entities;
+using System.Threading;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,11 +15,20 @@ namespace RideShare.Api.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly IRideShareDbContext _context;
+
+        public UsersController(IRideShareDbContext context)
+        {
+            _context = context;
+        }
+
+
+
         // GET: api/<AuthController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<User> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _context.Users.ToList();
         }
 
         // GET api/<AuthController>/5
@@ -28,8 +40,10 @@ namespace RideShare.Api.Controllers
 
         // POST api/<AuthController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromQuery] string username)
         {
+            _context.Users.Add(new Domain.Entities.User(Guid.NewGuid(), username, "12345"));
+            _=_context.SaveChangesAsync(CancellationToken.None).Result;
         }
 
         // PUT api/<AuthController>/5
