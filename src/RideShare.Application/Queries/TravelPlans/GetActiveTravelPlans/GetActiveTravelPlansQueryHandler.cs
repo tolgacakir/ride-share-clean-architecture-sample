@@ -23,7 +23,11 @@ namespace RideShare.Application.Queries.TravelPlans.GetActiveTravelPlans
 
         public async Task<List<GetActiveTravelPlansResponse>> Handle(GetActiveTravelPlansRequest request, CancellationToken cancellationToken)
         {
-            var travelPlans = await _context.TravelPlans.Where(x=>x.Status == TravelPlanStatuses.Active).ToListAsync();
+            var travelPlans = await _context.TravelPlans
+                .Include(x=>x.Demands)
+                .Include(x=>x.Driver)
+                .ThenInclude(x=>x.User)
+                .Where(x=>x.Status == TravelPlanStatuses.Active).ToListAsync();
             return _mapper.Map<List<GetActiveTravelPlansResponse>>(travelPlans);
         }
     }
@@ -35,6 +39,7 @@ namespace RideShare.Application.Queries.TravelPlans.GetActiveTravelPlans
 
     public class GetActiveTravelPlansResponse
     {
+        public int Id { get; set; }
         public string Caption { get; set; }
         public byte EmptySeat { get; set; }
         public string From { get; set; }
