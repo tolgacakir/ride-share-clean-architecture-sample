@@ -29,6 +29,7 @@ namespace RideShare.Application.Queries.TravelDemands.GetAwaitingTravelDemandsBy
                     && x.Plan.Id == request.TravelPlanId 
                     && (x.Passenger.User.Id == request.UserId || x.Plan.Driver.User.Id == request.UserId))
                 .Include(x=>x.Passenger)
+                .ThenInclude(x=>x.User)
                 .ToListAsync();
 
             return _mapper.Map<List<GetAwaitingTravelDemandsByTravelPlanResponse>>(travelDemands);

@@ -24,6 +24,8 @@ namespace RideShare.Application.Commands.TravelDemands.CreateTravelDemand
                 .FirstOrDefaultAsync();
 
             var plan = await _context.TravelPlans.Where(x => x.Id == request.TravelPlanId)
+                .Include(x=>x.Demands)
+                .ThenInclude(x=>x.Passenger)
                 .FirstOrDefaultAsync();
 
             var demand = passenger.CreateTravelDemand(plan);
