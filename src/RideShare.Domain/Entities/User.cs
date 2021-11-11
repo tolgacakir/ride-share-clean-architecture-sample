@@ -12,6 +12,17 @@ namespace RideShare.Domain.Entities
         public Driver Driver { get; private set; }
         public Passenger Passenger { get; private set; }
 
+        //for db data seeding
+        public User(Guid id, string username, string password)
+        {
+            if(CheckUsername(username) && CheckPassword(password))
+            {
+                Id = id;
+                Username = username;
+                Password = password;
+            }
+        }
+
         public User(string username, string password)
         {
             if(CheckUsername(username) && CheckPassword(password))
