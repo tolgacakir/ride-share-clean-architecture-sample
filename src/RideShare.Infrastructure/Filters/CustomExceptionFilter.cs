@@ -21,6 +21,8 @@ namespace RideShare.Infrastructure.Filters
                 errors = new[] { context.Exception.Message },
                 source = context.Exception.Source
             });
+
+            await Task.CompletedTask;
         }
     }
 }
