@@ -55,6 +55,7 @@ namespace RideShare.Domain.Entities
             }
             Capacity = capacity;
             Driver = driver;
+            AwaitingDemandCapacity = (ushort)awaitingDemandCapacity;
         }
 
         public TravelPlan()
