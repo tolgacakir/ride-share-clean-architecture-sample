@@ -11,6 +11,7 @@ COPY ["RideShare.sln", "RideShare"]
 COPY ["/src/RideShare.Domain/", "RideShare.Domain/"]
 COPY ["/src/RideShare.Application/", "RideShare.Application/"]
 COPY ["/src/RideShare.Persistence/", "RideShare.Persistence/"]
+COPY ["/src/RideShare.Infrastructure/", "RideShare.Infrastructure/"]
 COPY ["/src/RideShare.Api/", "RideShare.Api/"]
 
 RUN dotnet restore "RideShare.Api/RideShare.Api.csproj"
