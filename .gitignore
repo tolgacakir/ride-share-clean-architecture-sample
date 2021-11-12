@@ -20,4 +20,5 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
-
+[Mm]igration/
+[Mm]igrations/
