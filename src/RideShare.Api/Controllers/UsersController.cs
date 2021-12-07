@@ -6,56 +6,33 @@ using System.Threading.Tasks;
 using RideShare.Application.Common;
 using RideShare.Domain.Entities;
 using System.Threading;
+using RideShare.Application.Commands.Users.CreateUser;
+using MediatR;
+using RideShare.Api.Common;
+using RideShare.Application.Commands.Users.UpdateUserPassword;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RideShare.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : CustomControllerBase
     {
-        private readonly IRideShareDbContext _context;
-
-        public UsersController(IRideShareDbContext context)
+        public UsersController(IMediator mediator) : base(mediator)
         {
-            _context = context;
         }
 
-
-
-        // GET: api/<AuthController>
-        [HttpGet]
-        public IEnumerable<User> Get()
-        {
-            return _context.Users.ToList();
-        }
-
-        // GET api/<AuthController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<AuthController>
         [HttpPost]
-        public void Post([FromQuery] string username)
+        public async Task<CreateUserResponse> Create([FromBody] CreateUserRequest request)
         {
-            _context.Users.Add(new Domain.Entities.User(Guid.NewGuid(), username, "12345"));
-            _=_context.SaveChangesAsync(CancellationToken.None).Result;
+            return await _mediator.Send(request);
         }
 
-        // PUT api/<AuthController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost]
+        public async Task<UpdateUserPasswordResponse> UpdatePassword([FromBody] UpdateUserPasswordRequest request)
         {
-        }
-
-        // DELETE api/<AuthController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return await _mediator.Send(request);
         }
     }
 }
