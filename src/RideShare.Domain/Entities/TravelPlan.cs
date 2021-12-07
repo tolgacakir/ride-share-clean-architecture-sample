@@ -87,6 +87,10 @@ namespace RideShare.Domain.Entities
             {
                 Status = TravelPlanStatuses.Canceled;    
             }
+            else
+            {
+                throw new InvalidOperationException();
+            }
         }
 
         public void AcceptDemand(TravelDemand demand)
