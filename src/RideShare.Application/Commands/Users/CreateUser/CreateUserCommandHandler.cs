@@ -29,9 +29,10 @@ namespace RideShare.Application.Commands.Users.CreateUser
             var user = new User(request.Username, request.Password);
             _context.Users.Add(user);
             var result = await _context.SaveChangesAsync(cancellationToken);
+            var createdUser = await _context.Users.Where(x=>x.Username == request.Username).FirstOrDefaultAsync();
 
             return new CreateUserResponse{
-                Result = result
+                CreatedUserId = createdUser.Id
             };
         }
     }
@@ -44,6 +45,6 @@ namespace RideShare.Application.Commands.Users.CreateUser
 
     public class CreateUserResponse
     {
-        public int Result { get; set; }
+        public Guid CreatedUserId { get; set; }
     }
 }
