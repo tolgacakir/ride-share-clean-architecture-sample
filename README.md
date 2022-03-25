@@ -80,6 +80,10 @@ dotnet watch run --project src/RideShare.Api
 ## How to publish on Docker
 
 <br/>
+Make sure the SQL Server name in the connection string is correct.
+
+Make sure the generated rideshare-api image is generated from your code has the correct connection string.
+<br/>
 
 - **Add Migration**
 ```powershell
@@ -91,4 +95,11 @@ dotnet ef migrations add InitialMigration --project src/RideShare.Persistence
 - **Create Docker compose:**
 ```docker
 docker-compose up
+```
+
+<br/>
+
+- **Browse Swagger:**
+```
+http://localhost:5000/swagger/index.html
 ```
