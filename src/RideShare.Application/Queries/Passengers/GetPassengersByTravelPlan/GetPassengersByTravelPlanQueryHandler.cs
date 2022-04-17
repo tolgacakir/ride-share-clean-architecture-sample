@@ -8,6 +8,7 @@ using RideShare.Application.Common;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
+using RideShare.Application.Exception;
 
 namespace RideShare.Application.Queries.Passengers.GetPassengersByTravelPlan
 {
@@ -29,6 +30,12 @@ namespace RideShare.Application.Queries.Passengers.GetPassengersByTravelPlan
                 .Include(x => x.Demands)
                 .ThenInclude(x => x.Passenger)
                 .FirstOrDefaultAsync();
+
+            if (plan is null)
+            {
+                throw new NullReferenceException(ExceptionMessage.EntityNotFound(typeof(TravelPlan).Name));
+            }
+
             var passengers = plan.Passengers;
 
             return _mapper.Map<List<GetPassengersByTravelPlanResponse>>(passengers);

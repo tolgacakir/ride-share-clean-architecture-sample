@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RideShare.Application.Common;
+using RideShare.Application.Exception;
 using RideShare.Domain.Entities;
 
 namespace RideShare.Application.Commands.Users.UpdateUserPassword
@@ -22,6 +23,11 @@ namespace RideShare.Application.Commands.Users.UpdateUserPassword
         {
             var user = _context.Users.Where(x => x.Id == request.UserId)
                 .FirstOrDefaultAsync().Result;
+
+            if (user is null)
+            {
+                throw new NullReferenceException(ExceptionMessage.EntityNotFound(typeof(User).Name));
+            }
 
             user.SetPassword(request.Password);
 
