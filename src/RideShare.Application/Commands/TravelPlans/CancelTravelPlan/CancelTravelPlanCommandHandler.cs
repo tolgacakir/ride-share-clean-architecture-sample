@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RideShare.Application.Common;
+using RideShare.Application.Exception;
+using RideShare.Domain.Entities;
 
 namespace RideShare.Application.Commands.TravelPlans.CancelTravelPlan
 {
@@ -23,7 +25,18 @@ namespace RideShare.Application.Commands.TravelPlans.CancelTravelPlan
                 .Where(x=>x.User.Id == request.UserId)
                 .FirstOrDefaultAsync();
 
+            if (driver is null)
+            {
+                throw new NullReferenceException(ExceptionMessage.EntityNotFound(typeof(Driver).Name));
+            }
+
             var plan = driver.ActiveTravelPlans.Where(x=>x.Id == request.TravelPlanId).FirstOrDefault();
+
+            if (plan is null)
+            {
+                throw new NullReferenceException(ExceptionMessage.EntityNotFound(typeof(TravelPlan).Name));
+            }
+
             driver.CancelTravelPlan(plan);
 
             var result = await _context.SaveChangesAsync(cancellationToken);

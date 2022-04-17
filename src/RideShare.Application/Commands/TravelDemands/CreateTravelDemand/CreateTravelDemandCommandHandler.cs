@@ -6,6 +6,8 @@ using RideShare.Application.Common;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
+using RideShare.Application.Exception;
+using RideShare.Domain.Entities;
 
 namespace RideShare.Application.Commands.TravelDemands.CreateTravelDemand
 {
@@ -22,14 +24,23 @@ namespace RideShare.Application.Commands.TravelDemands.CreateTravelDemand
         {
             var passenger = await _context.Passengers.Where(x => x.User.Id == request.UserId)
                 .FirstOrDefaultAsync();
+            
+            if (passenger is null)
+            {
+                throw new NullReferenceException(ExceptionMessage.EntityNotFound(typeof(Passenger).Name));
+            }
 
             var plan = await _context.TravelPlans.Where(x => x.Id == request.TravelPlanId)
                 .Include(x=>x.Demands)
                 .ThenInclude(x=>x.Passenger)
                 .FirstOrDefaultAsync();
 
-            var demand = passenger.CreateTravelDemand(plan);
+            if (plan is null)
+            {
+                throw new NullReferenceException(ExceptionMessage.EntityNotFound(typeof(TravelPlan).Name));
+            }
 
+            var demand = passenger.CreateTravelDemand(plan);
 
             _context.TravelDemands.Add(demand);
             var result = await _context.SaveChangesAsync(cancellationToken);

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RideShare.Application.Common;
+using RideShare.Application.Exception;
 using RideShare.Domain.Entities;
 
 namespace RideShare.Application.Commands.Users.CreateUser
@@ -23,7 +24,7 @@ namespace RideShare.Application.Commands.Users.CreateUser
             var isExist = await _context.Users.AnyAsync(x => x.Username == request.Username);
             if (isExist)
             {
-                throw new ArgumentException();
+                throw new InvalidOperationException(ExceptionMessage.EntityIsAlreadyExist(typeof(User).Name));
             }
 
             var user = new User(request.Username, request.Password);

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RideShare.Application.Common;
+using RideShare.Application.Exception;
 using RideShare.Domain.Entities;
 
 namespace RideShare.Application.Commands.Drivers.CreateDriver
@@ -23,9 +24,15 @@ namespace RideShare.Application.Commands.Drivers.CreateDriver
             var user = await _context.Users
                 .Include(x=> x.Driver)
                 .FirstOrDefaultAsync(x => x.Id == request.UserId);
-            if (user.Driver != null)
+
+            if (user is null)
             {
-                throw new InvalidOperationException();
+                throw new NullReferenceException(ExceptionMessage.EntityNotFound(typeof(User).Name));
+            }
+            
+            if (user.Driver is not null)
+            {
+                throw new InvalidOperationException(ExceptionMessage.EntityIsAlreadyExist(typeof(Driver).Name));
             }
 
             var driver = user.CreateDriver();

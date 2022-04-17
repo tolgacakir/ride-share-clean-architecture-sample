@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RideShare.Application.Common;
+using RideShare.Application.Exception;
 using RideShare.Domain.Entities;
 
 namespace RideShare.Application.Commands.Passengers.CreatePassenger
@@ -23,9 +24,15 @@ namespace RideShare.Application.Commands.Passengers.CreatePassenger
             var user = await _context.Users
                 .Include(x=> x.Passenger)
                 .FirstOrDefaultAsync(x => x.Id == request.UserId);
-            if (user.Passenger != null)
+
+            if (user is null)
             {
-                throw new InvalidOperationException();
+                throw new NullReferenceException(ExceptionMessage.EntityNotFound(typeof(User).Name));
+            }
+            
+            if (user.Passenger is not null)
+            {
+                throw new InvalidOperationException(ExceptionMessage.EntityIsAlreadyExist(typeof(Passenger).Name));
             }
 
             var passenger = user.CreatePassenger();
