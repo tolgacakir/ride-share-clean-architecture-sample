@@ -38,7 +38,12 @@ namespace RideShare.Api
                 options.Filters.Add<CustomExceptionFilter>();
             })
                 .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<CreateUserValidator>());
-            ;
+            
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RideShare.Api", Version = "v1" });
