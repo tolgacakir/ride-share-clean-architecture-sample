@@ -1,5 +1,6 @@
 
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -12,14 +13,14 @@ namespace RideShare.Infrastructure.Filters
         {
             if (!context.ModelState.IsValid)
             {
-                var errors = context.ModelState
-                    .Where(e => e.Value.Errors.Count > 0)
-                    .ToDictionary(e => e.Key, e => e.Value.Errors.Select(e => new
-                    {
-                        e.ErrorMessage
-                    })).ToArray();
-
-                context.Result = new BadRequestObjectResult(errors);
+                context.Result = new ObjectResult(new {
+                    Errors = context.ModelState
+                        .Where(x=>x.Value.Errors.Count > 0)
+                        .SelectMany(y=>y.Value.Errors)
+                        .Select(z=>z.ErrorMessage),
+                    Source = "ValidationFilter"
+                });
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return;
             }
             await next();
